@@ -1,9 +1,18 @@
 import React from 'react';
 import { Admin, Resource } from 'react-admin';
+
+import UserIcon from '@material-ui/icons/Group';
+import CommandIcon from '@material-ui/icons/AttachMoney';
+import InvoiceIcon from '@material-ui/icons/LibraryBooks';
+import ProductIcon from '@material-ui/icons/Collections';
+import CategoryIcon from '@material-ui/icons/Bookmark';
+import ReviewIcon from '@material-ui/icons/Comment';
+
 import './App.css';
 
 import restProvider from './dataProvider/restProvider';
 
+import { Dashboard } from './Dashboard';
 import { ProductList } from './products/ProductList';
 import { CategoryList } from './categories/CategoryList';
 import { CustomerList } from './customers/CustomerList';
@@ -13,13 +22,13 @@ import { InvoiceList } from './invoices/InvoiceList';
 
 const App = () => (
     <div className="App">
-        <Admin title="adminTitle" dataProvider={restProvider}>
-            <Resource name={'products'} list={ProductList} />
-            <Resource name={'categories'} list={CategoryList} />
-            <Resource name={'customers'} list={CustomerList} />
-            <Resource name={'commands'} list={CommandList} />
-            <Resource name={'invoices'} list={InvoiceList} />
-            <Resource name={'reviews'} list={ReviewList} />
+        <Admin title="adminTitle" dashboard={Dashboard} dataProvider={restProvider}>
+            <Resource name={'commands'} list={CommandList} icon={CommandIcon} />
+            <Resource name={'invoices'} list={InvoiceList} icon={InvoiceIcon} />
+            <Resource name={'products'} list={ProductList} icon={ProductIcon} />
+            <Resource name={'categories'} list={CategoryList} icon={CategoryIcon} />
+            <Resource name={'customers'} list={CustomerList} icon={UserIcon} />
+            <Resource name={'reviews'} list={ReviewList} icon={ReviewIcon} />
         </Admin>
     </div>
 );
