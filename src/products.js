@@ -5,7 +5,6 @@ export const ProductList = props => (
     <List {...props}>
         <Datagrid rowClick="edit">
             <TextField source="id" />
-            {/*<ReferenceField source="category_id" reference="categories"><TextField source="id" /></ReferenceField>*/}
             <TextField source="reference" />
             <NumberField source="width" />
             <NumberField source="height" />
