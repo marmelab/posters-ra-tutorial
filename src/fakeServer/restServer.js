@@ -4,7 +4,6 @@ import generateData from 'data-generator-retail';
 
 export default () => {
     const data = generateData({ serializeDate: true });
-    console.log('data', data);
     const restServer = new FakeRest.FetchServer('http://localhost:4000');
     restServer.init(data);
     restServer.toggleLogging(); // logging is off by default, enable it

@@ -4,12 +4,12 @@ import './App.css';
 
 import restProvider from './dataProvider/restProvider';
 
-import { ProductList } from './products/products';
-import { CategoryList } from './categories/categories';
-import { CustomerList } from './customers/customers';
-import { CommandList } from './commands/commands';
-import { ReviewList } from './reviews/reviews';
-import { InvoiceList } from './invoices/invoices';
+import { ProductList } from './products/ProductList';
+import { CategoryList } from './categories/CategoryList';
+import { CustomerList } from './customers/CustomerList';
+import { CommandList } from './commands/CommandList';
+import { ReviewList } from './reviews/ReviewList';
+import { InvoiceList } from './invoices/InvoiceList';
 
 const App = () => (
     <div className="App">
