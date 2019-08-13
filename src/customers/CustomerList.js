@@ -18,7 +18,7 @@ export const CustomerList = props => (
             <TextField source="last_name" />
             <EmailField source="email" />
             <TextField source="address" />
-            <DateField source="zipcode" />
+            <TextField source="zipcode" />
             <TextField source="city" />
             <ImageField source="avatar" />
             <DateField source="birthday" />
