@@ -1,0 +1,37 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+        "eslint:recommended",
+        "react-app",
+        "plugin:prettier/recommended",
+        "prettier/@typescript-eslint",
+        "prettier/babel",
+        "prettier/react"
+    ],
+    "plugins": ["prettier", "import", "react", "react-hooks", "jsx-a11y","@typescript-eslint"],
+    "rules": {
+        "prettier/prettier": [
+            "error",
+            {
+                "singleQuote": true,
+                "tabWidth": 4,
+                "trailingComma": "all",
+                "printWidth": 100
+            }
+        ],
+        "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+        "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies,
+        "eqeqeq": [
+            "error",
+            "always"
+        ],
+        "curly": [
+            "error",
+            "multi-line"
+        ],
+        "one-var": [
+            "error",
+            "never"
+        ]
+    }
+}
