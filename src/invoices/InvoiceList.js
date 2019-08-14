@@ -1,10 +1,26 @@
 import React from 'react';
-import { List, Datagrid, TextField, NumberField, DateField, ReferenceField } from 'react-admin';
+import {
+    List,
+    Datagrid,
+    TextField,
+    NumberField,
+    DateField,
+    ReferenceField,
+    Filter,
+    DateInput,
+} from 'react-admin';
 import { AddressField } from '../customers/AddressField';
 import { AvatarField } from '../customers/AvatarField';
 
+const InvoiceFilter = props => (
+    <Filter {...props}>
+        <DateInput label="Passed Since" source="date_gte" alwaysOn />
+        <DateInput label="Passed Before" source="date_lte" alwaysOn />
+    </Filter>
+);
+
 export const InvoiceList = props => (
-    <List {...props}>
+    <List filters={<InvoiceFilter />} {...props}>
         <Datagrid rowClick="edit">
             <TextField source="id" />
             <DateField label="Invoice date" source="date" />

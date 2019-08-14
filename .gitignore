@@ -8,6 +8,11 @@
 # testing
 /coverage
 
+# sonarqube
+sonar-project.properties
+.scannerwork/
+.idea
+
 # production
 /build
 

@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.3.2",
+    "@material-ui/icons": "^4.2.1",
     "data-generator-retail": "^2.9.5",
     "fakerest": "^2.1.0",
     "fetch-mock": "^7.3.9",
@@ -40,7 +42,7 @@
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jest": "^22.15.0",
+    "eslint-plugin-jest": "^22.15.1",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react-hooks": "^1.7.0",
     "jest": "^24.8.0",

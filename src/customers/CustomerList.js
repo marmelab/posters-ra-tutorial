@@ -1,35 +1,19 @@
 import React from 'react';
-import {
-    List,
-    Datagrid,
-    TextField,
-    NumberField,
-    EmailField,
-    DateField,
-    BooleanField,
-    ImageField,
-} from 'react-admin';
+import { List, Datagrid, NumberField, DateField, BooleanField } from 'react-admin';
+
+import { AvatarField } from './AvatarField';
+import { ChipsField } from '../ChipsField';
 
 export const CustomerList = props => (
     <List {...props}>
         <Datagrid rowClick="edit">
-            <TextField source="id" />
-            <TextField source="first_name" />
-            <TextField source="last_name" />
-            <EmailField source="email" />
-            <TextField source="address" />
-            <TextField source="zipcode" />
-            <TextField source="city" />
-            <ImageField source="avatar" />
-            <DateField source="birthday" />
-            <DateField source="first_seen" />
+            <AvatarField label="Customer" sortable={false} source="id" />
             <DateField source="last_seen" />
-            <BooleanField source="has_ordered" />
-            <DateField source="latest_purchase" />
-            <BooleanField source="has_newsletter" />
-            <TextField source="groups" />
-            <NumberField source="nb_commands" />
+            <NumberField label="Orders" source="nb_commands" />
             <NumberField source="total_spent" />
+            <DateField source="latest_purchase" />
+            <BooleanField label="News" source="has_newsletter" />
+            <ChipsField label="Segments" source="groups" />
         </Datagrid>
     </List>
 );

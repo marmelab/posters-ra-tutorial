@@ -10,10 +10,27 @@ import {
     ArrayField,
     SingleFieldList,
     ChipField,
+    Filter,
+    TextInput,
+    NullableBooleanInput,
+    NumberInput,
+    ReferenceInput,
+    SelectInput,
 } from 'react-admin';
 
+const CommandFilter = props => (
+    <Filter {...props}>
+        <TextInput label="Search" source="q" alwaysOn />
+        <ReferenceInput label="Customer" source="customer_id" reference="customers">
+            <SelectInput optionText={choice => `${choice.first_name} ${choice.last_name}`} />
+        </ReferenceInput>
+        <NumberInput label="Min amount" source="total_gte" />
+        <NullableBooleanInput label="Returned" source="returned" />
+    </Filter>
+);
+
 export const CommandList = props => (
-    <List {...props}>
+    <List title="Orders" filters={<CommandFilter />} {...props}>
         <Datagrid rowClick="edit">
             <TextField source="id" />
             <TextField source="reference" />
