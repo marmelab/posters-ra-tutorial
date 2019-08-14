@@ -10,7 +10,7 @@ import {
 } from 'react-admin';
 
 export const ProductList = props => (
-    <List {...props}>
+    <List title="Posters" {...props}>
         <Datagrid rowClick="edit">
             <TextField source="id" />
             <ReferenceField source="category_id" reference="categories">

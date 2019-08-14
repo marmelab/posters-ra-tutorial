@@ -23,9 +23,19 @@ import { InvoiceList } from './invoices/InvoiceList';
 const App = () => (
     <div className="App">
         <Admin title="adminTitle" dashboard={Dashboard} dataProvider={restProvider}>
-            <Resource name={'commands'} list={CommandList} icon={CommandIcon} />
+            <Resource
+                options={{ label: 'Orders' }}
+                name={'commands'}
+                list={CommandList}
+                icon={CommandIcon}
+            />
             <Resource name={'invoices'} list={InvoiceList} icon={InvoiceIcon} />
-            <Resource name={'products'} list={ProductList} icon={ProductIcon} />
+            <Resource
+                options={{ label: 'Posters' }}
+                name={'products'}
+                list={ProductList}
+                icon={ProductIcon}
+            />
             <Resource name={'categories'} list={CategoryList} icon={CategoryIcon} />
             <Resource name={'customers'} list={CustomerList} icon={UserIcon} />
             <Resource name={'reviews'} list={ReviewList} icon={ReviewIcon} />
