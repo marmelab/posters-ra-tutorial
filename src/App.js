@@ -16,6 +16,7 @@ import { Dashboard } from './Dashboard';
 import { ProductList } from './products/ProductList';
 import { CategoryList } from './categories/CategoryList';
 import { CustomerList } from './customers/CustomerList';
+import { CustomerEdit } from './customers/CustomerEdit';
 import { CommandList } from './commands/CommandList';
 import { ReviewList } from './reviews/ReviewList';
 import { InvoiceList } from './invoices/InvoiceList';
@@ -37,7 +38,7 @@ const App = () => (
                 icon={ProductIcon}
             />
             <Resource name={'categories'} list={CategoryList} icon={CategoryIcon} />
-            <Resource name={'customers'} list={CustomerList} icon={UserIcon} />
+            <Resource name={'customers'} icon={UserIcon} list={CustomerList} edit={CustomerEdit} />
             <Resource name={'reviews'} list={ReviewList} icon={ReviewIcon} />
         </Admin>
     </div>

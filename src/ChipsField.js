@@ -19,8 +19,13 @@ export const ChipsField = ({ record, source }) => {
     return (
         <div className={classes.root}>
             {record &&
-                record[source].map(item => (
-                    <Chip key={item} label={item} clickable={false} className={classes.chip} />
+                record[source].map((item, index) => (
+                    <Chip
+                        key={`${item}_${index}`}
+                        label={item}
+                        clickable={false}
+                        className={classes.chip}
+                    />
                 ))}
         </div>
     );
