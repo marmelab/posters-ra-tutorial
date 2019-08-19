@@ -27,12 +27,7 @@ export const InvoiceList = props => (
             <ReferenceField source="customer_id" reference="customers">
                 <AvatarField source="id" />
             </ReferenceField>
-            <ReferenceField
-                label="Address"
-                source="customer_id"
-                reference="customers"
-                linkType={false}
-            >
+            <ReferenceField label="Address" source="customer_id" reference="customers" link={false}>
                 <AddressField source="id" />
             </ReferenceField>
             <ReferenceField label="Order" source="command_id" reference="commands">
