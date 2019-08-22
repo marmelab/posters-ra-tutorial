@@ -6,6 +6,7 @@ import './App.css';
 import restProvider from './dataProvider/restProvider';
 
 import { Dashboard } from './Dashboard';
+import MyLayout from './MyLayout';
 
 import products from './products';
 import reviews from './reviews';
@@ -16,7 +17,12 @@ import customers from './customers';
 
 const App = () => (
     <div className="App">
-        <Admin title="adminTitle" dashboard={Dashboard} dataProvider={restProvider}>
+        <Admin
+            title="Posters Galore"
+            layout={MyLayout}
+            dashboard={Dashboard}
+            dataProvider={restProvider}
+        >
             <Resource options={{ label: 'Orders' }} name={'commands'} {...commands} />
             <Resource name={'invoices'} {...invoices} />
             <Resource options={{ label: 'Posters' }} name={'products'} {...products} />
