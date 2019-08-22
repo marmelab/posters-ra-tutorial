@@ -3,9 +3,8 @@ import { useQuery, GET_LIST } from 'react-admin';
 
 import { startOfMonth, endOfMonth } from 'date-fns';
 
+const today = Date.now();
 const MonthlyRevenue = () => {
-    const today = Date.now();
-
     const { loading, error, data } = useQuery({
         type: GET_LIST,
         resource: 'commands',
