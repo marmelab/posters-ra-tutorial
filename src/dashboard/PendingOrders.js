@@ -1,42 +1,65 @@
 import React from 'react';
-import { useQuery, GET_LIST } from 'react-admin';
+import { ReferenceField } from 'react-admin';
 import { format, parseISO } from 'date-fns';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
 
-const PendingOrders = () => {
-    const { loading, error, data } = useQuery({
-        type: GET_LIST,
-        resource: 'commands',
-        payload: {
-            pagination: { page: 1, perPage: 10 },
-            sort: { field: 'date', order: 'ASC' },
-            filter: { status: 'ordered' },
-        },
-    });
-    if (loading) {
-        return <p>Loading</p>;
-    }
-    if (error) {
-        return <p>ERROR</p>;
-    }
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemText from '@material-ui/core/ListItemText';
+import Avatar from '@material-ui/core/Avatar';
 
+const AvatarField = ({ record }) => <Avatar src={record.avatar} />;
+
+const FullName = ({ record }) => <span>{`${record.first_name} ${record.last_name}`}</span>;
+
+const ReferencedCustomer = ({ record, children }) => (
+    <ReferenceField record={record} basePath="/commands" source="customer_id" reference="customers">
+        {children}
+    </ReferenceField>
+);
+
+const PendingOrders = ({ orders }) => {
     return (
-        <div
-            css={css`
-                margin-top: 30px;
-            `}
-        >
-            Pending Orders
-            <ul>
-                {data.map(({ id, customer_id, date, total }) => (
-                    <li key={id}>{`Customer: ${customer_id} - ${format(
-                        parseISO(date),
-                        'dd/MM/yyyy, HH:mm:ss',
-                    )} - $${total}`}</li>
-                ))}
-            </ul>
-        </div>
+        <Card>
+            <CardHeader align="left" title="Pending Orders" />
+            <List dense={true}>
+                {orders.map(record => {
+                    const { id, date, basket, total } = record;
+                    return (
+                        <ListItem key={id}>
+                            <ListItemAvatar>
+                                <ReferencedCustomer record={record}>
+                                    <AvatarField />
+                                </ReferencedCustomer>
+                            </ListItemAvatar>
+                            <ListItemText
+                                primary={format(parseISO(date), 'dd/MM/yyyy, HH:mm:ss')}
+                                secondary={
+                                    <span>
+                                        <ReferencedCustomer record={record}>
+                                            <FullName />
+                                        </ReferencedCustomer>
+                                        , {basket.length} items
+                                    </span>
+                                }
+                            />
+                            <ListItemSecondaryAction>
+                                <span
+                                    style={{
+                                        marginRight: '1em',
+                                    }}
+                                >
+                                    ${total}
+                                </span>
+                            </ListItemSecondaryAction>
+                        </ListItem>
+                    );
+                })}
+            </List>
+        </Card>
     );
 };
 

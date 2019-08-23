@@ -1,33 +1,19 @@
 import React from 'react';
-import { useQuery, GET_LIST } from 'react-admin';
+import CardValue from './CardValue';
+import { makeStyles } from '@material-ui/core/styles';
 
-import { startOfMonth, endOfMonth } from 'date-fns';
+const useStyles = makeStyles({
+    main: {
+        flex: '1',
+        marginTop: 20,
+    },
+});
 
-const today = Date.now();
-const MonthlyRevenue = () => {
-    const { loading, error, data } = useQuery({
-        type: GET_LIST,
-        resource: 'commands',
-        payload: {
-            pagination: { page: 1, perPage: 10 },
-            sort: { field: 'price', order: 'ASC' },
-            filter: {
-                status: 'delivered',
-                date_gte: startOfMonth(today),
-                date_lte: endOfMonth(today),
-            },
-        },
-    });
-    if (loading) {
-        return <p>Loading</p>;
-    }
-    if (error) {
-        return <p>ERROR</p>;
-    }
-    const totalAmount = data.reduce((acc, order) => acc + order.total, 0);
+const MonthlyRevenue = ({ value }) => {
+    const classes = useStyles();
     return (
-        <div>
-            <p>{`MonthlyRevenue: $${totalAmount.toFixed(2)}`}</p>
+        <div className={classes.main}>
+            <CardValue title="Monthly Revenue" value={'$'.concat(value)} />
         </div>
     );
 };

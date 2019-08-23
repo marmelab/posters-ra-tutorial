@@ -1,51 +1,68 @@
-import React, { useState, useEffect } from 'react';
-import { useDataProvider, GET_LIST, GET_MANY } from 'react-admin';
+import React from 'react';
+import { ReferenceField } from 'react-admin';
+import CardValue from './CardValue';
+import Card from '@material-ui/core/Card';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
 
-const PendingReviews = () => {
-    const dataProvider = useDataProvider();
-    const [loading, setLoading] = useState(true);
-    const [reviews, setReviews] = useState([]);
-    useEffect(() => {
-        (async function() {
-            // useEffect doesn't accept async functions
-            const { data: pendingReviews } = await dataProvider(GET_LIST, 'reviews', {
-                pagination: { page: 1, perPage: 10 },
-                filter: { status: 'pending' },
-                sort: { field: 'date', order: 'DESC' },
-            });
-            const customerIds = pendingReviews.map(review => review.customer_id);
-            const uniqueCustomerIds = [...new Set(customerIds)];
-            const { data: customers } = await dataProvider(GET_MANY, 'customers', {
-                ids: uniqueCustomerIds,
-            });
-            const customersById = customers.reduce((acc, customer) => {
-                acc[customer.id] = customer;
-                return acc;
-            }, {});
-            const pendingReviewsWithCustomers = pendingReviews.map(review => ({
-                ...review,
-                customer: customersById[review.customer_id],
-            }));
-            setReviews(pendingReviewsWithCustomers);
-            setLoading(false);
-        })();
-    }, [dataProvider]);
+import Icon from '@material-ui/icons/Stars';
 
-    if (loading) {
-        return <p>Loading</p>;
-    }
-    console.log('reviews', reviews);
-    return (
-        <div>
-            Pending Reviews: {reviews.length}
-            <br />
-            {reviews.map(review => (
-                <div key={review.id}>
-                    {review.customer.first_name} {review.customer.last_name}: {review.rating}*<br />
-                    {review.comment.substring(0, 20)}...
-                </div>
+const style = { opacity: 0.87, width: 20, height: 20 };
+
+const StarRatingField = ({ rating }) => (
+    <span>
+        {Array(rating)
+            .fill(true)
+            .map((_, i) => (
+                <Icon key={i} style={style} />
             ))}
-        </div>
+    </span>
+);
+
+const ReferencedCustomerProvider = ({ record, children }) => {
+    const Proxy = props => children(props);
+    return (
+        <ReferenceField
+            record={record}
+            basePath="/commands"
+            source="customer_id"
+            reference="customers"
+        >
+            <Proxy />
+        </ReferenceField>
+    );
+};
+
+const PendingReviews = ({ reviews }) => {
+    return (
+        <Card>
+            <CardValue title="Pending Reviews" value={reviews.length} />
+            <Divider />
+            <List dense={true}>
+                {reviews.map(record => {
+                    const { id, rating, comment } = record;
+                    return (
+                        <ReferencedCustomerProvider key={id} record={record}>
+                            {({ record }) => (
+                                <ListItem>
+                                    <ListItemAvatar>
+                                        <Avatar src={record.avatar} />
+                                    </ListItemAvatar>
+                                    <ListItemText
+                                        primary={<StarRatingField rating={rating} />}
+                                        secondary={comment.substring(0, 40)}
+                                    />
+                                </ListItem>
+                            )}
+                        </ReferencedCustomerProvider>
+                    );
+                })}
+            </List>
+        </Card>
     );
 };
 
