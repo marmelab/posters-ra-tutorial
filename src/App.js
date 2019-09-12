@@ -5,7 +5,7 @@ import './App.css';
 
 import restProvider from './dataProvider/restProvider';
 
-import { Dashboard } from './Dashboard';
+import Dashboard from './dashboard/Dashboard';
 import MyLayout from './MyLayout';
 
 import products from './products';
